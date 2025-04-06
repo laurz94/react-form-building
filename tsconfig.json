@@ -7,9 +7,6 @@
       "path": "./apps/react-form-building"
     },
     {
-      "path": "./domain"
-    },
-    {
       "path": "./libs/domain"
     }
   ]
