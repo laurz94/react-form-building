@@ -1,7 +1,7 @@
 import {
   createNestedObject,
   isObject
-} from './object-functions';
+} from './object-manipulation';
 
 describe('Object Functions', () => {
   describe('isObject', () => {

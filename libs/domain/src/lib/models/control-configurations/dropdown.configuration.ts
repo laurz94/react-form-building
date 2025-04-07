@@ -1,8 +1,5 @@
-export interface DropdownConfiguration {
-  options: DropdownOption[];
-}
+import { ControlOption } from "./control-option";
 
-export interface DropdownOption {
-  label: string;
-  value: string | boolean | number;
+export interface DropdownConfiguration {
+  options: ControlOption[];
 }

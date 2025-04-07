@@ -1,8 +1,5 @@
-export interface CheckboxConfiguration {
-  options: CheckboxOption[];
-}
+import { ControlOption } from "./control-option";
 
-export interface CheckboxOption {
-  label: string;
-  value: string | boolean | number;
+export interface CheckboxConfiguration {
+  options: ControlOption[];
 }

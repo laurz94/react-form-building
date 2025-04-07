@@ -6,5 +6,5 @@ export interface FieldRule {
     fieldName: string;
     valueToMatch: FieldValue;
     effectedFields: FieldRuleEffectedField[];
-    updateOn: typeof FieldRuleUpdateEvent;
+    updateOn: FieldRuleUpdateEvent;
 }

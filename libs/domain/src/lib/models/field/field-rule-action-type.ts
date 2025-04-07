@@ -1,1 +1,18 @@
-export type FieldRuleActionType = 'show' | 'hide' | 'require' | 'optional' | 'disable' | 'enable' | 'readonly' | 'editable' | 'setMin' | 'setMax' | 'setPattern' | 'setOptions' | 'setValue';
+export type FieldRuleActionType =
+  | 'show'
+  | 'hide'
+  | 'require'
+  | 'optional'
+  | 'disable'
+  | 'enable'
+  | 'readonly'
+  | 'editable'
+  | 'setMin'
+  | 'setMax'
+  | 'setMinDate'
+  | 'setMaxDate'
+  | 'setMinLength'
+  | 'setMaxLength'
+  | 'setPattern'
+  | 'setOptions'
+  | 'setValue';

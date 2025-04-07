@@ -29,7 +29,7 @@ export function processFieldRules(
         newFieldConfigs = fieldConfigs.map(
           (config): FieldConfiguration<any> => {
             const effectedField = fieldRule.effectedFields.find(
-              (field) => field.name === config.controlConfig.name
+              (field) => field.name === config.name
             );
 
             return effectedField
@@ -50,6 +50,17 @@ function applyFieldRule(
 ): FieldConfiguration<any> {
   const newConfig = { ...config, controlConfig: { ...config.controlConfig } };
 
+  function getActionValue(action: FieldRuleAction) {
+    return action.value
+      ? isFunction(action.value)
+        ? // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+          (action.value as Function)(data)
+        : typeof action.value === 'number'
+        ? +action.value
+        : action.value
+      : undefined;
+  }
+
   actions.forEach((action) => {
     switch (action.action) {
       case 'show':
@@ -65,10 +76,10 @@ function applyFieldRule(
         newConfig.isRequired = false;
         break;
       case 'disable':
-        newConfig.controlConfig.isDisabled = true;
+        newConfig.isDisabled = true;
         break;
       case 'enable':
-        newConfig.controlConfig.isDisabled = false;
+        newConfig.isDisabled = false;
         break;
       case 'readonly':
         newConfig.isReadonly = true;
@@ -77,55 +88,42 @@ function applyFieldRule(
         newConfig.isReadonly = false;
         break;
       case 'setMin':
-        (newConfig.controlConfig as NumberConfiguration).min = isFunction(
-          action.value
-        )
-          ? action.value(data)
-          : action.value;
+        (newConfig.controlConfig as NumberConfiguration).min =
+          getActionValue(action);
         break;
       case 'setMax':
-        (newConfig.controlConfig as NumberConfiguration).max = isFunction(
-          action.value
-        )
-          ? action.value(data)
-          : action.value;
+        (newConfig.controlConfig as NumberConfiguration).max =
+          getActionValue(action);
         break;
       case 'setMinDate':
         (newConfig.controlConfig as DatePickerConfiguration).minDate =
-          isFunction(action.value) ? action.value(data) : action.value;
+          getActionValue(action);
         break;
       case 'setMaxDate':
         (newConfig.controlConfig as DatePickerConfiguration).maxDate =
-          isFunction(action.value) ? action.value(data) : action.value;
+          getActionValue(action);
         break;
       case 'setMinLength':
         (newConfig.controlConfig as TextboxConfiguration).minLength =
-          isFunction(action.value) ? action.value(data) : action.value;
+          getActionValue(action);
         break;
       case 'setMaxLength':
         (newConfig.controlConfig as TextboxConfiguration).maxLength =
-          isFunction(action.value) ? action.value(data) : action.value;
+          getActionValue(action);
         break;
       case 'setValue':
-        newConfig.value = isFunction(action.value)
-          ? action.value(data)
-          : action.value;
+        newConfig.value = getActionValue(action);
         break;
       case 'setPattern':
-        (newConfig.controlConfig as TextboxConfiguration).pattern = isFunction(
-          action.value
-        )
-          ? action.value(data)
-          : action.value;
+        (newConfig.controlConfig as TextboxConfiguration).pattern =
+          getActionValue(action);
         break;
       case 'setOptions':
         (
           newConfig.controlConfig as
             | DropdownConfiguration
             | CheckboxConfiguration
-        ).options = isFunction(action.value)
-          ? action.value(data)
-          : action.value;
+        ).options = getActionValue(action);
         break;
       default:
         break;

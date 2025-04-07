@@ -1,12 +1,13 @@
-import { ControlTypeEnum } from '../enums';
+import { ControlTypeEnum } from '../constants';
 import {
   CheckboxConfiguration,
-  CheckboxOption,
+  ControlOption,
   DatePickerConfiguration,
   FieldConfiguration,
   FieldRule,
   FieldRuleEffectedField,
   FieldRuleProcessEvent,
+  FieldRuleUpdateEvent,
   getDefaultFieldConfiguration,
   NumberConfiguration,
   TextboxConfiguration,
@@ -16,7 +17,7 @@ import { processFieldRules } from './field-rules';
 describe('FieldRules', () => {
   describe('processFieldRules', () => {
     const event: FieldRuleProcessEvent = {
-      action: 'change',
+      action: FieldRuleUpdateEvent.onChange,
       fieldName: 'ageOrDateOfBirth',
       value: 'dateOfBirth',
     };
@@ -26,19 +27,18 @@ describe('FieldRules', () => {
       return {
         fieldName: 'ageOrDateOfBirth',
         valueToMatch: 'dateOfBirth',
-        updateOn: 'change',
+        updateOn: FieldRuleUpdateEvent.onChange,
         effectedFields,
       };
     };
-    const getFieldConfig = (
-      overrides: any
-    ): FieldConfiguration<any> => {
+    const getFieldConfig = (overrides: any): FieldConfiguration<any> => {
       return getDefaultFieldConfiguration({
         ...overrides,
+        inputId: overrides.inputId ?? 'test',
+        name: overrides.name ??'test',
         controlType: overrides.controlType ?? ControlTypeEnum.Textbox,
         controlConfig: {
           ...overrides.controlConfig,
-          inputId: 'test',
         },
       });
     };
@@ -58,22 +58,24 @@ describe('FieldRules', () => {
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
         getFieldConfig({
-          controlConfig: { name: 'ageOrDateOfBirth' },
+          name: 'ageOrDateOfBirth',
+          inputId: 'ageOrDateOfBirth',
         }),
-        getFieldConfig({ isHidden: false, controlConfig: { name: 'age' } }),
+        getFieldConfig({ isHidden: false, name: 'age', inputId: 'age' }),
         getFieldConfig({
           isHidden: true,
-          controlConfig: { name: 'dateOfBirth' },
+          name: 'dateOfBirth',
         }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
         getFieldConfig({
-          controlConfig: { name: 'ageOrDateOfBirth' },
+          name: 'ageOrDateOfBirth',
+          inputId: 'ageOrDateOfBirth',
         }),
-        getFieldConfig({ isHidden: true, controlConfig: { name: 'age' } }),
+        getFieldConfig({ isHidden: true, name: 'age', inputId: 'age' }),
         getFieldConfig({
           isHidden: false,
-          controlConfig: { name: 'dateOfBirth' },
+          name: 'dateOfBirth',
         }),
       ];
       const returnValue = processFieldRules(event, fieldConfigs, fieldRules);
@@ -96,22 +98,24 @@ describe('FieldRules', () => {
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
         getFieldConfig({
-          controlConfig: { name: 'ageOrDateOfBirth' },
+          name: 'ageOrDateOfBirth',
+          inputId: 'ageOrDateOfBirth',
         }),
-        getFieldConfig({ isRequired: true, controlConfig: { name: 'age' } }),
+        getFieldConfig({ isRequired: true, name: 'age', inputId: 'age' }),
         getFieldConfig({
           isRequired: false,
-          controlConfig: { name: 'dateOfBirth' },
+          name: 'dateOfBirth',
         }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
         getFieldConfig({
-          controlConfig: { name: 'ageOrDateOfBirth' },
+          name: 'ageOrDateOfBirth',
+          inputId: 'ageOrDateOfBirth',
         }),
-        getFieldConfig({ isRequired: false, controlConfig: { name: 'age' } }),
+        getFieldConfig({ isRequired: false, name: 'age', inputId: 'age' }),
         getFieldConfig({
           isRequired: true,
-          controlConfig: { name: 'dateOfBirth' },
+          name: 'dateOfBirth',
         }),
       ];
       const returnValue = processFieldRules(event, fieldConfigs, fieldRules);
@@ -133,17 +137,19 @@ describe('FieldRules', () => {
         ]),
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
-        getFieldConfig({ controlConfig: { name: 'age', isDisabled: false } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
+        getFieldConfig({ name: 'age', isDisabled: false }),
         getFieldConfig({
-          controlConfig: { name: 'dateOfBirth', isDisabled: true },
+          name: 'dateOfBirth',
+          isDisabled: true,
         }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
-        getFieldConfig({ controlConfig: { name: 'age', isDisabled: true } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
+        getFieldConfig({ name: 'age', isDisabled: true }),
         getFieldConfig({
-          controlConfig: { name: 'dateOfBirth', isDisabled: false },
+          name: 'dateOfBirth',
+          isDisabled: false,
         }),
       ];
       const returnValue = processFieldRules(event, fieldConfigs, fieldRules);
@@ -167,22 +173,24 @@ describe('FieldRules', () => {
 
       const fieldConfigs: FieldConfiguration<any>[] = [
         getFieldConfig({
-          controlConfig: { name: 'ageOrDateOfBirth' },
+          name: 'ageOrDateOfBirth',
+          inputId: 'ageOrDateOfBirth',
         }),
-        getFieldConfig({ isReadonly: false, controlConfig: { name: 'age' } }),
+        getFieldConfig({ isReadonly: false, name: 'age', inputId: 'age' }),
         getFieldConfig({
           isReadonly: true,
-          controlConfig: { name: 'dateOfBirth' },
+          name: 'dateOfBirth',
         }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
         getFieldConfig({
-          controlConfig: { name: 'ageOrDateOfBirth' },
+          name: 'ageOrDateOfBirth',
+          inputId: 'ageOrDateOfBirth',
         }),
-        getFieldConfig({ isReadonly: true, controlConfig: { name: 'age' } }),
+        getFieldConfig({ isReadonly: true, name: 'age', inputId: 'age' }),
         getFieldConfig({
           isReadonly: false,
-          controlConfig: { name: 'dateOfBirth' },
+          name: 'dateOfBirth',
         }),
       ];
       const returnValue = processFieldRules(event, fieldConfigs, fieldRules);
@@ -206,25 +214,29 @@ describe('FieldRules', () => {
         },
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
           controlType: ControlTypeEnum.Number,
+          name: 'age',
           controlConfig: {
-            name: 'age',
             min: undefined,
             max: undefined,
           } as NumberConfiguration,
         }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
           controlType: ControlTypeEnum.Number,
-          controlConfig: { name: 'age', min: 18, max: 99 },
+          name: 'age',
+          controlConfig: {
+            min: 18,
+            max: 99,
+          },
         }),
       ];
       const event: FieldRuleProcessEvent = {
-        action: 'change',
+        action: FieldRuleUpdateEvent.onChange,
         fieldName: 'ageOrDateOfBirth',
         value: 'age',
       };
@@ -258,25 +270,26 @@ describe('FieldRules', () => {
         },
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
           controlType: ControlTypeEnum.Number,
+          name: 'age',
           controlConfig: {
-            name: 'age',
             min: undefined,
             max: undefined,
           } as NumberConfiguration,
         }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
           controlType: ControlTypeEnum.Number,
-          controlConfig: { name: 'age', min: 1997, max: 1916 },
+          name: 'age',
+          controlConfig: { min: 1997, max: 1916 },
         }),
       ];
       const event: FieldRuleProcessEvent = {
-        action: 'change',
+        action: FieldRuleUpdateEvent.onChange,
         fieldName: 'ageOrDateOfBirth',
         value: 'age',
       };
@@ -306,29 +319,29 @@ describe('FieldRules', () => {
         },
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
           controlType: ControlTypeEnum.DatePicker,
+          name: 'age',
           controlConfig: {
-            name: 'age',
             minDate: undefined,
             maxDate: undefined,
           } as DatePickerConfiguration,
         }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
           controlType: ControlTypeEnum.DatePicker,
+          name: 'age',
           controlConfig: {
-            name: 'age',
             minDate: '1999-12-31',
             maxDate: '2030-01-01',
           },
         }),
       ];
       const event: FieldRuleProcessEvent = {
-        action: 'change',
+        action: FieldRuleUpdateEvent.onChange,
         fieldName: 'ageOrDateOfBirth',
         value: 'age',
       };
@@ -374,29 +387,29 @@ describe('FieldRules', () => {
         },
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
           controlType: ControlTypeEnum.DatePicker,
+          name: 'age',
           controlConfig: {
-            name: 'age',
             minDate: undefined,
             maxDate: undefined,
           } as DatePickerConfiguration,
         }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
           controlType: ControlTypeEnum.DatePicker,
+          name: 'age',
           controlConfig: {
-            name: 'age',
             minDate: 'Sat, 01 Nov 1997 01:00:00 GMT',
             maxDate: 'Wed, 01 Nov 1916 01:00:00 GMT',
           },
         }),
       ];
       const event: FieldRuleProcessEvent = {
-        action: 'change',
+        action: FieldRuleUpdateEvent.onChange,
         fieldName: 'ageOrDateOfBirth',
         value: 'age',
       };
@@ -426,23 +439,24 @@ describe('FieldRules', () => {
         },
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
+          name: 'age',
           controlConfig: {
-            name: 'age',
             minLength: undefined,
             maxLength: undefined,
           },
         }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
-          controlConfig: { name: 'age', minLength: 4, maxLength: 9 },
+          name: 'age',
+          controlConfig: { minLength: 4, maxLength: 9 },
         }),
       ];
       const event: FieldRuleProcessEvent = {
-        action: 'change',
+        action: FieldRuleUpdateEvent.onChange,
         fieldName: 'ageOrDateOfBirth',
         value: 'age',
       };
@@ -474,27 +488,27 @@ describe('FieldRules', () => {
         },
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
+          name: 'age',
           controlConfig: {
-            name: 'age',
             minLength: undefined,
             maxLength: undefined,
           },
         }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
+          name: 'age',
           controlConfig: {
-            name: 'age',
             minLength: data.minPolicyNumbers,
             maxLength: data.maxPolicyNumbers,
           },
         }),
       ];
       const event: FieldRuleProcessEvent = {
-        action: 'change',
+        action: FieldRuleUpdateEvent.onChange,
         fieldName: 'ageOrDateOfBirth',
         value: 'age',
       };
@@ -521,22 +535,24 @@ describe('FieldRules', () => {
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
         getFieldConfig({
-          controlConfig: { name: 'ageOrDateOfBirth' },
+          name: 'ageOrDateOfBirth',
+          inputId: 'ageOrDateOfBirth',
         }),
         getFieldConfig({
+          name: 'dateOfBirth',
           controlConfig: {
-            name: 'dateOfBirth',
             pattern: undefined,
           } as TextboxConfiguration,
         }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
         getFieldConfig({
-          controlConfig: { name: 'ageOrDateOfBirth' },
+          name: 'ageOrDateOfBirth',
+          inputId: 'ageOrDateOfBirth',
         }),
         getFieldConfig({
+          name: 'dateOfBirth',
           controlConfig: {
-            name: 'dateOfBirth',
             pattern: /^[0-9]{2}-[0-9]{2}-[0-9]{4}/,
           } as TextboxConfiguration,
         }),
@@ -560,22 +576,24 @@ describe('FieldRules', () => {
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
         getFieldConfig({
-          controlConfig: { name: 'ageOrDateOfBirth' },
+          name: 'ageOrDateOfBirth',
+          inputId: 'ageOrDateOfBirth',
         }),
         getFieldConfig({
+          name: 'dateOfBirth',
           controlConfig: {
-            name: 'dateOfBirth',
             pattern: undefined,
           } as TextboxConfiguration,
         }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
         getFieldConfig({
-          controlConfig: { name: 'ageOrDateOfBirth' },
+          name: 'ageOrDateOfBirth',
+          inputId: 'ageOrDateOfBirth',
         }),
         getFieldConfig({
+          name: 'dateOfBirth',
           controlConfig: {
-            name: 'dateOfBirth',
             pattern: /^[0-9]{2}-[0-9]{2}-[0-9]{4}/,
           } as TextboxConfiguration,
         }),
@@ -603,15 +621,15 @@ describe('FieldRules', () => {
         },
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
-        getFieldConfig({ controlConfig: { name: 'age' }, value: undefined }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
+        getFieldConfig({ name: 'age', value: undefined }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
-        getFieldConfig({ controlConfig: { name: 'age' }, value: 25 }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
+        getFieldConfig({ name: 'age', value: 25 }),
       ];
       const event: FieldRuleProcessEvent = {
-        action: 'change',
+        action: FieldRuleUpdateEvent.onChange,
         fieldName: 'ageOrDateOfBirth',
         value: 'age',
       };
@@ -645,15 +663,15 @@ describe('FieldRules', () => {
         },
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
-        getFieldConfig({ controlConfig: { name: 'age' }, value: undefined }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
+        getFieldConfig({ name: 'age', value: undefined }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
-        getFieldConfig({ controlConfig: { name: 'age' }, value: 30 }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
+        getFieldConfig({ name: 'age', value: 30 }),
       ];
       const event: FieldRuleProcessEvent = {
-        action: 'change',
+        action: FieldRuleUpdateEvent.onChange,
         fieldName: 'ageOrDateOfBirth',
         value: 'age',
       };
@@ -668,7 +686,7 @@ describe('FieldRules', () => {
     });
 
     it('process the event to set the field options', () => {
-      const options: CheckboxOption[] = [
+      const options: ControlOption[] = [
         { label: 'Salvador Perez', value: 'Salvi' },
         { label: 'Yordano Ventura', value: 'RIP Ventura' },
         { label: 'Alex Gordon', value: 'Gordo' },
@@ -689,21 +707,21 @@ describe('FieldRules', () => {
         },
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
+          name: 'age',
           controlConfig: {
-            name: 'age',
-            options: [{}],
+            options: [{} as any],
           } as CheckboxConfiguration,
           value: undefined,
         }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
-        getFieldConfig({ controlConfig: { name: 'age', options } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
+        getFieldConfig({ name: 'age', controlConfig: { options } }),
       ];
       const event: FieldRuleProcessEvent = {
-        action: 'change',
+        action: FieldRuleUpdateEvent.onChange,
         fieldName: 'ageOrDateOfBirth',
         value: 'age',
       };
@@ -741,27 +759,33 @@ describe('FieldRules', () => {
         },
       ];
       const fieldConfigs: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
+          name: 'age',
           controlConfig: {
-            name: 'age',
-            options: [{}],
+            options: [{} as any],
           } as CheckboxConfiguration,
           value: undefined,
         }),
       ];
       const expectedValue: FieldConfiguration<any>[] = [
-        getFieldConfig({ controlConfig: { name: 'ageOrDateOfBirth' } }),
+        getFieldConfig({ name: 'ageOrDateOfBirth' }),
         getFieldConfig({
-          controlConfig: { name: 'age', options: data.foreverRoyals },
+          name: 'age',
+          controlConfig: { options: data.foreverRoyals },
         }),
       ];
       const event: FieldRuleProcessEvent = {
-        action: 'change',
+        action: FieldRuleUpdateEvent.onChange,
         fieldName: 'ageOrDateOfBirth',
         value: 'age',
       };
-      const returnValue = processFieldRules(event, fieldConfigs, fieldRules, data);
+      const returnValue = processFieldRules(
+        event,
+        fieldConfigs,
+        fieldRules,
+        data
+      );
 
       expect(returnValue).toEqual(expectedValue);
     });
@@ -780,18 +804,19 @@ describe('FieldRules', () => {
         ]),
       ];
       const event: FieldRuleProcessEvent = {
-        action: 'change',
+        action: FieldRuleUpdateEvent.onChange,
         fieldName: 'dateOfBirth',
         value: '1985-10-27',
       };
       const fieldConfigs: FieldConfiguration<any>[] = [
         getFieldConfig({
-          controlConfig: { name: 'ageOrDateOfBirth' },
+          name: 'ageOrDateOfBirth',
+          inputId: 'ageOrDateOfBirth',
         }),
-        getFieldConfig({ isRequired: true, controlConfig: { name: 'age' } }),
+        getFieldConfig({ isRequired: true, name: 'age', inputId: 'age' }),
         getFieldConfig({
           isRequired: false,
-          controlConfig: { name: 'dateOfBirth' },
+          name: 'dateOfBirth',
         }),
       ];
       const returnValue = processFieldRules(event, fieldConfigs, fieldRules);
@@ -813,18 +838,19 @@ describe('FieldRules', () => {
         ]),
       ];
       const event: FieldRuleProcessEvent = {
-        action: 'blur',
+        action: FieldRuleUpdateEvent.onBlur,
         fieldName: 'ageOrDateOfBirth',
         value: 'dateOfBirth',
       };
       const fieldConfigs: FieldConfiguration<any>[] = [
         getFieldConfig({
-          controlConfig: { name: 'ageOrDateOfBirth' },
+          name: 'ageOrDateOfBirth',
+          inputId: 'ageOrDateOfBirth',
         }),
-        getFieldConfig({ isRequired: true, controlConfig: { name: 'age' } }),
+        getFieldConfig({ isRequired: true, name: 'age', inputId: 'age' }),
         getFieldConfig({
           isRequired: false,
-          controlConfig: { name: 'dateOfBirth' },
+          name: 'dateOfBirth',
         }),
       ];
       const returnValue = processFieldRules(event, fieldConfigs, fieldRules);
@@ -846,18 +872,19 @@ describe('FieldRules', () => {
         ]),
       ];
       const event: FieldRuleProcessEvent = {
-        action: 'change',
+        action: FieldRuleUpdateEvent.onChange,
         fieldName: 'ageOrDateOfBirth',
         value: 'dateOfBirth',
       };
       const fieldConfigs: FieldConfiguration<any>[] = [
         getFieldConfig({
-          controlConfig: { name: 'ageOrDateOfBirth' },
+          name: 'ageOrDateOfBirth',
+          inputId: 'ageOrDateOfBirth',
         }),
-        getFieldConfig({ isRequired: true, controlConfig: { name: 'age' } }),
+        getFieldConfig({ isRequired: true, name: 'age', inputId: 'age' }),
         getFieldConfig({
           isRequired: false,
-          controlConfig: { name: 'dateOfBirth' },
+          name: 'dateOfBirth',
         }),
       ];
       const returnValue = processFieldRules(event, fieldConfigs, fieldRules);
@@ -866,4 +893,3 @@ describe('FieldRules', () => {
     });
   });
 });
-

@@ -7,7 +7,7 @@ export function customValidator(
   let isInvalid = false;
 
   switch (matcher) {
-    case 'equal':
+    case 'equals':
       isInvalid = value === valueToMatch;
       break;
     case 'greaterThan':
@@ -27,7 +27,7 @@ export function customValidator(
           isInvalid = value.includes(valueToMatch);
         } else if (Array.isArray(valueToMatch)) {
           isInvalid = valueToMatch.reduce((previousValue, currentValue) => {
-            return value.includes(currentValue);
+            return value.includes(currentValue as string);
           }, isInvalid);
         }
       }

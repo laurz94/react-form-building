@@ -1,7 +1,8 @@
-import { ControlTypeEnum } from '../enums';
+import { ControlTypeEnum } from '../constants';
 import {
   DatePickerConfiguration,
   FieldConfiguration,
+  getDefaultFieldConfiguration,
   NumberConfiguration,
   TextboxConfiguration,
 } from '../models';
@@ -10,12 +11,14 @@ import { isValueEmpty, validateField } from './validate-field';
 describe('Validate Field', () => {
   describe('validateField', () => {
     describe('isRequired', () => {
-      const field: FieldConfiguration<any> = {
+      const field: FieldConfiguration<any> = getDefaultFieldConfiguration({
         controlType: ControlTypeEnum.Textbox,
         isRequired: true,
         label: 'Age',
-        controlConfig: { inputId: 'age', name: 'age', isDisabled: false },
-      };
+        inputId: 'age',
+        name: 'age',
+        isDisabled: false,
+      });
       const value = 0;
       it('return an error message when the value is not supplied', () => {
         const thisField = { ...field, requiredErrorMessage: undefined };
@@ -45,7 +48,7 @@ describe('Validate Field', () => {
       };
       it('return an error message when the value is less than minLength', () => {
         const expectedValue = [
-          `${field.label} must be at least ${field.controlConfig.minLength} characters.`,
+          `${field.label} must be at least ${field.controlConfig!.minLength} characters.`,
         ];
         const testValue = validateField(field, '2');
 
@@ -72,7 +75,7 @@ describe('Validate Field', () => {
       };
       it('return an error message when the value is greater than maxLength', () => {
         const expectedValue = [
-          `${field.label} cannot be more than ${field.controlConfig.maxLength} characters.`,
+          `${field.label} cannot be more than ${field.controlConfig!.maxLength} characters.`,
         ];
         const testValue = validateField(field, '290');
 
@@ -101,7 +104,7 @@ describe('Validate Field', () => {
       };
       it('return an error message when the value is less than min', () => {
         const expectedValue = [
-          `${field.label} must be no less than ${field.controlConfig.min}.`,
+          `${field.label} must be no less than ${field.controlConfig!.min}.`,
         ];
         const testValue = validateField(field, 1);
 
@@ -130,7 +133,7 @@ describe('Validate Field', () => {
       };
       it('return an error message when the value is greater than max', () => {
         const expectedValue = [
-          `${field.label} must be no greater than ${field.controlConfig.max}.`,
+          `${field.label} must be no greater than ${field.controlConfig!.max}.`,
         ];
         const testValue = validateField(field, 29);
 
@@ -157,7 +160,7 @@ describe('Validate Field', () => {
       };
       it('return an error message when the value is less than minDate', () => {
         const expectedValue = [
-          `${field.label} must be no less than ${field.controlConfig.minDate}.`,
+          `${field.label} must be no less than ${field.controlConfig!.minDate}.`,
         ];
         const testValue = validateField(field, '1999-12-31');
 
@@ -184,7 +187,7 @@ describe('Validate Field', () => {
       };
       it('return an error message when the value is greater than maxDate', () => {
         const expectedValue = [
-          `${field.label} must be no greater than ${field.controlConfig.maxDate}.`,
+          `${field.label} must be no greater than ${field.controlConfig!.maxDate}.`,
         ];
         const testValue = validateField(field, '2025-03-25');
 

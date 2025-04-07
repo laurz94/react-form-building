@@ -1,4 +1,4 @@
-export const stateDropdownOptions = [
+export const stateControlOptions = [
   { label: 'Alabama', value: 'AL' },
   { label: 'Alaska', value: 'AK' },
   { label: 'Arizona', value: 'AZ' },

@@ -1,4 +1,4 @@
-export const FieldRuleUpdateEvent = {
-    blur: 'onBlur',
-    change: 'onChange'
-} as const;
+export enum FieldRuleUpdateEvent  {
+    onBlur = 'onBlur',
+    onChange= 'onChange'
+};

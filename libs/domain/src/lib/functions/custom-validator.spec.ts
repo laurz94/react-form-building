@@ -19,7 +19,7 @@ describe('Custom Validator', () => {
     it('return an error when the value matches', () => {
       const validator: Validator = {
         error,
-        matcher: 'equal',
+        matcher: 'equals',
         valueToMatch: true,
       };
       const value = true;
@@ -28,7 +28,7 @@ describe('Custom Validator', () => {
     it('return undefined when the value does not match', () => {
       const validator: Validator = {
         error,
-        matcher: 'equal',
+        matcher: 'equals',
         valueToMatch: true,
       };
       const value = false;

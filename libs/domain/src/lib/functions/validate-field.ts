@@ -1,13 +1,11 @@
 import { FieldConfiguration } from '../models';
-import { isObject } from './object-functions';
+import { isObject } from './object-manipulation';
 
 export function validateField(field: FieldConfiguration<any>, value: any) {
   const errors: string[] = [];
 
   if (field.isRequired && isValueEmpty(value)) {
-    errors.push(
-      field.requiredErrorMessage ?? `${field.label} is a required field.`
-    );
+    errors.push(`${field.label} is a required field.`);
   }
 
   if (
