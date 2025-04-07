@@ -1,1 +1,2 @@
-export * from './lib/domain.js';
+export * from './lib/functions/index';
+export * from './lib/models/index';
