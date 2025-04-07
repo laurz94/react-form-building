@@ -13,7 +13,7 @@ import { isFunction } from './object-manipulation';
 
 export function processFieldRules(
   event: FieldRuleProcessEvent,
-  fieldConfigs: FieldConfiguration<BaseFieldConfiguration>[],
+  fieldConfigs: FieldConfiguration<any>[],
   fieldRules: FieldRule[],
   data?: any
 ): FieldConfiguration<any>[] {
@@ -27,7 +27,7 @@ export function processFieldRules(
         fieldRule.updateOn === event.action
       ) {
         newFieldConfigs = fieldConfigs.map(
-          (config): FieldConfiguration<BaseFieldConfiguration> => {
+          (config): FieldConfiguration<any> => {
             const effectedField = fieldRule.effectedFields.find(
               (field) => field.name === config.controlConfig.name
             );
@@ -45,7 +45,7 @@ export function processFieldRules(
 
 function applyFieldRule(
   actions: FieldRuleAction[],
-  config: FieldConfiguration<BaseFieldConfiguration>,
+  config: FieldConfiguration<any>,
   data?: any
 ): FieldConfiguration<any> {
   const newConfig = { ...config, controlConfig: { ...config.controlConfig } };
