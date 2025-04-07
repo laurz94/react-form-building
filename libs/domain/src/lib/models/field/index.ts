@@ -1,3 +1,4 @@
+export * frp, './control-type.enum';
 export * from './field-configuration';
 export * from './field-rule';
 export * from './field-rule-action';
@@ -10,4 +11,3 @@ export * from './field-value';
 export * from './validation-error';
 export * from './validation-matcher';
 export * from './validator';
-
