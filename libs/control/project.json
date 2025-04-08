@@ -1,0 +1,9 @@
+{
+  "name": "control",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/control/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project control --web",
+  "targets": {}
+}
