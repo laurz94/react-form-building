@@ -4,6 +4,7 @@ export interface NumberConfiguration {
   min?: number;
   max?: number;
   placeholder?: string;
+  prefix?: string;
   step?: number;
 }
 

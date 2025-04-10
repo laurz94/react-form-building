@@ -9,7 +9,7 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "../control/src/lib/date-picker/date-picker.configuration.ts", "../control/src/lib/number/number.configuration.ts", "../control/src/lib/textbox/textbox.configuration.ts"],
   "references": [],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts"]
 }

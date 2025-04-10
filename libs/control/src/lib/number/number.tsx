@@ -1,5 +1,6 @@
+import { FieldConfiguration } from '@libs/domain';
 import { useState } from 'react';
-import { NumberConfiguration } from '@lib/domain';
+import { NumberConfiguration } from './number.configuration';
 import styles from './number.module.css';
 
 export function LibNumber({
@@ -10,7 +11,7 @@ export function LibNumber({
   onChanged,
   onFocused,
 }: {
-  config: NumberConfiguration;
+  config: FieldConfiguration<NumberConfiguration>;
   className: string;
   initialValue: number;
   /**
@@ -44,10 +45,10 @@ export function LibNumber({
     }
   };
 
-  return config.isCurrency || config.prefix ? (
+  return config.controlConfig.isCurrency || config.controlConfig.prefix ? (
     <div className={`${styles['input-group']} ${['prefix']}`}>
       <span className={styles['input-group-addon']}>
-        {config.isCurrency ? '$' : config.prefix}
+        {config.controlConfig.isCurrency ? '$' : config.controlConfig.prefix}
       </span>
       <input
         type="number"
@@ -55,10 +56,10 @@ export function LibNumber({
         data-testid={config.inputId + '-number'}
         className={'form-control ' + className}
         disabled={config.isDisabled}
-        min={config.min ?? 0}
-        max={config.max ?? undefined}
-        placeholder={config.placeholder}
-        step={config.step ?? 1}
+        min={config.controlConfig.min ?? 0}
+        max={config.controlConfig.max ?? undefined}
+        placeholder={config.controlConfig.placeholder}
+        step={config.controlConfig.step ?? 1}
         prefix="$"
         value={value}
         onBlur={handleBlur}
@@ -73,10 +74,10 @@ export function LibNumber({
       data-testid={config.inputId + '-number'}
       className={'form-control ' + className}
       disabled={config.isDisabled}
-      min={config.min ?? 0}
-      max={config.max ?? undefined}
-      placeholder={config.placeholder}
-      step={config.step ?? 1}
+      min={config.controlConfig.min ?? 0}
+      max={config.controlConfig.max ?? undefined}
+      placeholder={config.controlConfig.placeholder}
+      step={config.controlConfig.step ?? 1}
       value={value}
       onBlur={handleBlur}
       onChange={handleChange}

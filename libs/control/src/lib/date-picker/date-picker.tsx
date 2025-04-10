@@ -1,26 +1,28 @@
+import { FieldConfiguration } from '@libs/domain';
 import { useState } from 'react';
 import '../global.css';
-import { TextboxConfiguration } from '@lib/domain';
+import { DatePickerConfiguration } from './date-picker.configuration';
 
-export function LibTextbox({
+export function LibDatePicker({
   config,
   initialValue,
-  className,  onBlurred,
+  className,
+  onBlurred,
   onChanged,
   onFocused,
 }: {
-  config: TextboxConfiguration;
-  initialValue: string;
-  className: string
+  config: FieldConfiguration<DatePickerConfiguration>;
+  initialValue: string | number | undefined;
+  className: string;
   /**
    * Use this event to validate the field
    * @param event The HTML blur event from the DOM
    * @param value The value of the control
    * @returns
    */
-  onBlurred?: (value: string) => void;
-  onChanged?: (value: string) => void;
-  onFocused?: (value: string) => void;
+  onBlurred?: (value: string | number) => void;
+  onChanged?: (value: string | number) => void;
+  onFocused?: (value: string | number) => void;
 }) {
   const [value, setValue] = useState(initialValue ?? '');
 
@@ -45,22 +47,19 @@ export function LibTextbox({
 
   return (
     <input
-      type="text"
-      id={config.inputId + '-textbox'}
-      data-testid={config.inputId + '-textbox'}
-      className={"form-control " + (className ?? '')}
+      type="date"
+      id={config.inputId + '-date-picker'}
+      data-testid={config.inputId + '-date-picker'}
+      className={'form-control ' + className}
       disabled={config.isDisabled}
-      minLength={config.minLength}
-      maxLength={config.maxLength}
-      pattern={config.pattern}
-      placeholder={config.placeholder}
+      min={config.controlConfig.minDate}
+      max={config.controlConfig.maxDate}
       value={value}
       onBlur={handleBlur}
       onChange={handleChange}
       onFocus={handleFocus}
-      onInput={config.onInput}
-    ></input>
+    />
   );
 }
 
-export default LibTextbox;
+export default LibDatePicker;
