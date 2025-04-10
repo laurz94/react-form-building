@@ -1,0 +1,25 @@
+@import '../global.css';
+
+.input-group {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+
+  .input-group-addon {
+    background-color: #eee;
+    border-radius: var(--border-radius); /* var(--border-radius) 0 0 var(--border-radius); */
+    border: var(--border);
+    border-right: 0;
+    color: var(--hint-font-color);
+    display: table-cell;
+    padding: 0.5rem 0.75rem;
+    text-align: center;
+    vertical-align: middle;
+    width: 1%;
+    white-space: nowrap;
+  }
+
+  .form-control {
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  }
+}

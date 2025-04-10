@@ -1,0 +1,88 @@
+import { useState } from 'react';
+import { NumberConfiguration } from '@lib/domain';
+import styles from './number.module.css';
+
+export function LibNumber({
+  config,
+  initialValue,
+  className,
+  onBlurred,
+  onChanged,
+  onFocused,
+}: {
+  config: NumberConfiguration;
+  className: string;
+  initialValue: number;
+  /**
+   * Use this event to validate the field
+   * @param event The HTML blur event from the DOM
+   * @param value The value of the control
+   * @returns
+   */
+  onBlurred?: (value: string | number) => void;
+  onChanged?: (value: string | number) => void;
+  onFocused?: (value: string | number) => void;
+}) {
+  const [value, setValue] = useState(initialValue ?? '');
+
+  const handleBlur = () => {
+    if (onBlurred) {
+      onBlurred(value);
+    }
+  };
+  const handleChange = (event: any) => {
+    const newValue = event.target.value;
+    setValue(newValue);
+
+    if (onChanged) {
+      onChanged(newValue);
+    }
+  };
+  const handleFocus = () => {
+    if (onFocused) {
+      onFocused(value);
+    }
+  };
+
+  return config.isCurrency || config.prefix ? (
+    <div className={`${styles['input-group']} ${['prefix']}`}>
+      <span className={styles['input-group-addon']}>
+        {config.isCurrency ? '$' : config.prefix}
+      </span>
+      <input
+        type="number"
+        id={config?.inputId + '-number'}
+        data-testid={config.inputId + '-number'}
+        className={'form-control ' + className}
+        disabled={config.isDisabled}
+        min={config.min ?? 0}
+        max={config.max ?? undefined}
+        placeholder={config.placeholder}
+        step={config.step ?? 1}
+        prefix="$"
+        value={value}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        onFocus={handleFocus}
+      />
+    </div>
+  ) : (
+    <input
+      type="number"
+      id={config.inputId + '-number'}
+      data-testid={config.inputId + '-number'}
+      className={'form-control ' + className}
+      disabled={config.isDisabled}
+      min={config.min ?? 0}
+      max={config.max ?? undefined}
+      placeholder={config.placeholder}
+      step={config.step ?? 1}
+      value={value}
+      onBlur={handleBlur}
+      onChange={handleChange}
+      onFocus={handleFocus}
+    />
+  );
+}
+
+export default LibNumber;
