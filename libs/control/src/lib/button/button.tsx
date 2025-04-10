@@ -1,4 +1,4 @@
-import { ButtonConfiguration } from './button.configuration';
+import { ButtonConfiguration } from '@libs/domain';
 import styles from './button.module.css';
 
 export function LibButton({

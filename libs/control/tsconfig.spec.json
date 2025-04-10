@@ -3,10 +3,12 @@
   "compilerOptions": {
     "outDir": "./out-tsc/jest",
     "jsx": "react-jsx",
+    "lib": ["ESNext", "DOM"],
     "types": ["jest", "node"]
   },
   "include": [
     "jest.config.ts",
+    "jest.setup.ts",
     "src/**/*.test.ts",
     "src/**/*.spec.ts",
     "src/**/*.test.tsx",

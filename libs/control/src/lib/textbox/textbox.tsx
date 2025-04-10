@@ -1,7 +1,6 @@
-import { FieldConfiguration } from '@libs/domain';
+import { FieldConfiguration, TextboxConfiguration } from '@libs/domain';
 import { useState } from 'react';
 import '../global.css';
-import { TextboxConfiguration } from './textbox.configuration';
 
 export function LibTextbox({
   config,

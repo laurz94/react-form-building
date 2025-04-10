@@ -1,6 +1,5 @@
-import { FieldConfiguration } from '@libs/domain';
+import { FieldConfiguration, NumberConfiguration } from '@libs/domain';
 import { useState } from 'react';
-import { NumberConfiguration } from './number.configuration';
 import styles from './number.module.css';
 
 export function LibNumber({

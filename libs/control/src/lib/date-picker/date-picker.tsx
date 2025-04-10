@@ -1,7 +1,6 @@
-import { FieldConfiguration } from '@libs/domain';
+import { DatePickerConfiguration, FieldConfiguration } from '@libs/domain';
 import { useState } from 'react';
 import '../global.css';
-import { DatePickerConfiguration } from './date-picker.configuration';
 
 export function LibDatePicker({
   config,

@@ -77,7 +77,6 @@
   },
   "workspaces": [
     "apps/*",
-    "domain",
     "libs/*"
   ]
 }

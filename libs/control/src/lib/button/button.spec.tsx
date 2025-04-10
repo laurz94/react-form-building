@@ -1,8 +1,9 @@
 
+import { ButtonConfiguration } from '@libs/domain';
+import '@testing-library/jest-dom';
 import { act } from 'react';
 import ReactDOMClient from 'react-dom/client';
 import { LibButton } from './button';
-import { ButtonConfiguration } from './button.configuration';
 
 describe('Button', () => {
   async function getButton(config: ButtonConfiguration) {
