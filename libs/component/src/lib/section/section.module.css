@@ -1,7 +1,63 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+.section {
+  border: var(--border);
+  border-radius: var(--border-radius);
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  width: -webkit-fill-available;
+
+  .header {
+    background-color: var(--primary-color);
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    color: var(--text-on-primary-color);
+    font-size: var(--font-size-xlarge);
+    font-weight: 500;
+    margin: -0.5rem -1rem 0.5rem -1rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+
+    .title {
+      flex-grow: 3;
+    }
+
+    .icon {
+      color: var(--text-on-primary-color);
+      font-size: var(--font-size-large);
+      margin-right: 0.5rem;
+    }
+
+    .toggle {
+      background-color: transparent;
+      border: none;
+
+      .icon {
+        border-radius: 50%;
+        margin: 0;
+      }
+
+      &:hover {
+        outline: 0;
+        box-shadow: var(--bs-focus-ring-x, 0) var(--bs-focus-ring-y, 0)
+          var(--bs-focus-ring-blur, 0) var(--focus-ring-width)
+          var(--focus-ring-color-inverted);
+      }
+    }
+  }
+
+  .body {
+    width: 100%;
+  }
+}
+
+.sub-section {
+  border: var(--border);
+  border-radius: var(--border-radius);
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  width: -webkit-fill-available;
+
+  .body {
+    width: 100%;
+  }
+}
