@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "./out-tsc/jest",
     "jsx": "react-jsx",
-    "types": ["jest", "node"]
+    "lib": ["DOM", "DOM.AsyncIterable", "DOM.Iterable"],
+    "types": ["jest", "node", "jsdom"]
   },
   "include": [
     "jest.config.ts",
