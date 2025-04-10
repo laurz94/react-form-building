@@ -1,16 +1,13 @@
 import {
-  BaseFieldConfiguration,
   FieldConfiguration,
   FieldRule,
   FieldRuleUpdateEvent,
-  processFieldRules,
-  ReadonlyFieldConfiguration,
+  processFieldRules,ReadonlyFieldConfiguration
 } from '@libs/domain';
 import { useState } from 'react';
 import Field from '../field/field';
-import { ReadonlyField } from '../readonly-field';
-import Section from '../section/section';
-import { SectionConfiguration } from '../section/section.configuration';
+import Section, { SectionConfiguration } from '../section/section';
+import ReadonlyField from '../readonly-field/readonly-field';
 
 export function LibForm({
   fields,
@@ -21,7 +18,7 @@ export function LibForm({
   onFocused,
 }: {
   fields: (
-    | FieldConfiguration<BaseFieldConfiguration>
+    | FieldConfiguration<any>
     | SectionConfiguration
     | ReadonlyFieldConfiguration
   )[];
@@ -36,7 +33,7 @@ export function LibForm({
   const handleBlur = (value: any, fieldName: string) => {
     // TODO: If we have cross field validations, it should happen here
     // validate(value);
-    processRules(value, fieldName, 'blur');
+    processRules(value, fieldName, 'onBlur');
 
     if (onBlurred) {
       onBlurred(value);
@@ -44,7 +41,7 @@ export function LibForm({
   };
 
   const handleChange = (value: any, fieldName: string) => {
-    processRules(value, fieldName, 'change');
+    processRules(value, fieldName, 'onChange');
 
     if (onChanged) {
       onChanged(value, fieldName);

@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import {
-  BaseFieldConfiguration,
   ControlTypeEnum,
   FieldConfiguration,
   FieldRule,
@@ -9,7 +8,7 @@ import {
 import Form from './form.js';
 
 describe('Form', () => {
-  const baseConfig: FieldConfiguration<BaseFieldConfiguration> = {
+  const baseConfig: FieldConfiguration<any> = {
     controlType: ControlTypeEnum.Textbox,
     controlConfig: {
       inputId: 'test',
@@ -20,7 +19,7 @@ describe('Form', () => {
     isReadonly: false,
     label: 'First Name',
   };
-  const fields: FieldConfiguration<BaseFieldConfiguration>[] = [
+  const fields: FieldConfiguration<any>[] = [
     { ...baseConfig },
     {
       ...baseConfig,

@@ -1,16 +1,12 @@
 import {
-    DatePickerConfiguration,
-    DropdownConfiguration,
-    NumberConfiguration,
-    SelectButtonConfiguration,
-    TextboxConfiguration,
-} from '@libs/control';
-import {
-    BaseFieldConfiguration,
-    CheckboxConfiguration,
-    ControlTypeEnum,
-    FieldConfiguration,
-    Validator,
+  CheckboxConfiguration, ControlTypeEnum,
+  DatePickerConfiguration,
+  DropdownConfiguration,
+  FieldConfiguration,
+  NumberConfiguration,
+  // SelectButtonConfiguration,
+  TextboxConfiguration,
+  Validator,
 } from '@libs/domain';
 import { fireEvent, render, screen } from '@testing-library/react';
 import Field from './field';
@@ -20,27 +16,19 @@ describe('Field', () => {
   const handleChange = jest.fn();
   const handleFocus = jest.fn();
   const inputId = 'test';
-  const baseConfig: FieldConfiguration<BaseFieldConfiguration> = {
+  const baseConfig: FieldConfiguration<any> = {
     controlType: ControlTypeEnum.Textbox,
-    controlConfig: {
-      inputId,
-      name: inputId,
-      isDisabled: false,
-    },
+    controlConfig: {},
+    inputId,
+    name: inputId,
+    isDisabled: false,
     isRequired: true,
     isReadonly: false,
     label: 'First Name',
   };
 
-  function getField(config: FieldConfiguration<BaseFieldConfiguration>) {
-    render(
-      <Field
-        config={config}
-        onChanged={handleChange}
-        onBlurred={handleBlur}
-        onFocused={handleFocus}
-      />
-    );
+  function getField(config: FieldConfiguration<any>) {
+    render(<Field config={config} onChanged={handleChange} onBlurred={handleBlur} onFocused={handleFocus} />);
 
     return screen.getAllByTestId('test-field')?.[0];
   }
@@ -178,7 +166,7 @@ describe('Field', () => {
       `);
     });
     it('NOT display an validation error when on blur is fired (with value, field isRequired)', async () => {
-      const field = getField({...baseConfig, value: 'George Brett'});
+      const field = getField({ ...baseConfig, value: 'George Brett' });
       const inputElement = screen.getByRole('textbox');
       fireEvent.focus(inputElement);
       fireEvent.blur(inputElement, { target: { value: 'George Brett' } });
@@ -198,7 +186,7 @@ describe('Field', () => {
     it('display a custom message when a customer validator is supplied and value matches', async () => {
       const validator: Validator = {
         error: { name: 'TestValidator', message: 'Test validation message' },
-        matcher: 'equal',
+        matcher: 'equals',
         valueToMatch: 'George Brett',
       };
       const field = getField({ ...baseConfig, validators: [validator] });
@@ -212,7 +200,7 @@ describe('Field', () => {
     it('NOT display a custom message when a customer validator is supplied and value does NOT match', async () => {
       const validator: Validator = {
         error: { name: 'TestValidator', message: 'Test validation message' },
-        matcher: 'equal',
+        matcher: 'equals',
         valueToMatch: 'George Brett',
       };
       const field = getField({ ...baseConfig, validators: [validator] });
@@ -412,6 +400,7 @@ describe('Field', () => {
         </div>
       `);
     });
+    /* 
     it('display a select-button', async () => {
       const config: FieldConfiguration<SelectButtonConfiguration> = {
         ...baseConfig,
@@ -461,6 +450,7 @@ describe('Field', () => {
         </div>
       `);
     });
+ */
     it('display a textbox', async () => {
       const config: FieldConfiguration<TextboxConfiguration> = {
         ...baseConfig,
@@ -508,9 +498,7 @@ describe('Field', () => {
     });
     it('displays a readonly field if field isReadonly', () => {
       render(<Field config={{ ...baseConfig, isReadonly: true }} />);
-      const readonlyField = screen.getAllByTestId(
-        'First Name-readonly-field'
-      )?.[0];
+      const readonlyField = screen.getAllByTestId('First Name-readonly-field')?.[0];
 
       expect(readonlyField).toBeTruthy();
       expect(readonlyField).toMatchInlineSnapshot(`

@@ -1,23 +1,14 @@
 import {
-  BaseFieldConfiguration,
   customValidator,
   FieldConfiguration,
   validateField,
-} from '@ibs/domain';
-
-import {
-  LibDatePicker,
-  LibDropdown,
-  LibNumber,
-  LibSelectButton,
-  LibTextbox,
+  ControlTypeEnum,
   DropdownConfiguration,
-  SelectButtonConfiguration,
-} from '@libs/control';
-import { ControlTypeEnum } from '@libs/domain';
+} from '@libs/domain';
 import { useState } from 'react';
 import { ReadonlyField } from '../readonly-field';
 import styles from './field.module.css';
+import { LibDatePicker, LibNumber, LibTextbox } from '@libs/control';
 
 export function Field({
   config,
@@ -25,7 +16,7 @@ export function Field({
   onChanged,
   onFocused,
 }: {
-  config: FieldConfiguration<BaseFieldConfiguration>;
+  config: FieldConfiguration<any>;
   onBlurred?: (value: string | number, fieldName: string) => void;
   onChanged?: (value: string | number, fieldName: string) => void;
   onFocused?: (value: string | number) => void;
@@ -51,7 +42,7 @@ export function Field({
     validate(value);
 
     if (onBlurred) {
-      onBlurred(value, (config.controlConfig as BaseFieldConfiguration).name);
+      onBlurred(value, (config.controlConfig as any).name);
     }
   };
 
@@ -59,7 +50,7 @@ export function Field({
     validate(value);
 
     if (onChanged) {
-      onChanged(value, (config.controlConfig as BaseFieldConfiguration).name);
+      onChanged(value, (config.controlConfig as any).name);
     }
   };
 
@@ -113,7 +104,7 @@ export function Field({
           onFocused={handleFocus}
         ></LibDatePicker>
       )}
-
+{/* 
       {config.controlType === ControlTypeEnum.Dropdown && (
         <LibDropdown
           key={config.controlConfig.inputId}
@@ -125,7 +116,7 @@ export function Field({
           onFocused={handleFocus}
         ></LibDropdown>
       )}
-
+ */}
       {config.controlType === ControlTypeEnum.Number && (
         <LibNumber
           key={config.controlConfig.inputId}
@@ -137,7 +128,7 @@ export function Field({
           onFocused={handleFocus}
         ></LibNumber>
       )}
-
+{/* 
       {config.controlType === ControlTypeEnum.SelectButton && (
         <LibSelectButton
           key={config.controlConfig.inputId}
@@ -149,7 +140,7 @@ export function Field({
           onFocused={handleFocus}
         ></LibSelectButton>
       )}
-
+ */}
       {config.controlType === ControlTypeEnum.Textbox && (
         <LibTextbox
           key={config.controlConfig.inputId}

@@ -5,5 +5,5 @@ export * from './control-option';
 export * from './date-picker.configuration';
 export * from './dropdown.configuration';
 export * from './number.configuration';
+export * from './readonly-field.configuration';
 export * from './textbox.configuration';
-
