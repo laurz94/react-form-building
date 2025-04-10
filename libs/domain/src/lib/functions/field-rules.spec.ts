@@ -361,9 +361,10 @@ describe('FieldRules', () => {
                 {
                   action: 'setMinDate',
                   value: (data: any) => {
-                    const today = new Date('2015-11-01');
-                    const minDate = today.setFullYear(
-                      today.getFullYear() - data.minAge
+                    // note: UTC months are 0 based, January is 0, December is 11
+                    const today = new Date(Date.UTC(2015, 10, 1));
+                    const minDate = today.setUTCFullYear(
+                      today.getUTCFullYear() - data.maxAge
                     );
 
                     return new Date(minDate).toUTCString();
@@ -372,9 +373,9 @@ describe('FieldRules', () => {
                 {
                   action: 'setMaxDate',
                   value: (data: any) => {
-                    const today = new Date('2015-11-01');
-                    const maxDate = today.setFullYear(
-                      today.getFullYear() - data.maxAge
+                    const today = new Date(Date.UTC(2015, 10, 1));
+                    const maxDate = today.setUTCFullYear(
+                      today.getUTCFullYear() - data.minAge
                     );
 
                     return new Date(maxDate).toUTCString();
@@ -403,8 +404,8 @@ describe('FieldRules', () => {
           controlType: ControlTypeEnum.DatePicker,
           name: 'age',
           controlConfig: {
-            minDate: 'Sat, 01 Nov 1997 01:00:00 GMT',
-            maxDate: 'Wed, 01 Nov 1916 01:00:00 GMT',
+            maxDate: 'Sat, 01 Nov 1997 00:00:00 GMT',
+            minDate: 'Wed, 01 Nov 1916 00:00:00 GMT',
           },
         }),
       ];
