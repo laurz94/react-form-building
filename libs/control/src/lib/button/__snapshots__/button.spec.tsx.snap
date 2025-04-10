@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button primary button can render primary button with label and icon 1`] = `
+<button
+  class="lib-button primary"
+  data-testid="test-button"
+  id="test-button"
+  type="button"
+>
+  <i
+    class="fa-solid fa-floppy-disk icon"
+    data-testid="test-button-icon"
+  />
+  test
+</button>
+`;
+
+exports[`Button primary button can render primary button with only icon 1`] = `
+<button
+  class="lib-button primary"
+  data-testid="test-button"
+  id="test-button"
+  type="button"
+>
+  <i
+    class="fa-solid fa-floppy-disk icon"
+    data-testid="test-button-icon"
+  />
+</button>
+`;
+
+exports[`Button primary button can render primary button with only label 1`] = `
+<button
+  class="lib-button primary"
+  data-testid="test-button"
+  id="test-button"
+  type="button"
+>
+  test
+</button>
+`;
+
+exports[`Button secondary button can render secondary button with label and icon 1`] = `
+<button
+  class="lib-button secondary"
+  data-testid="test-button"
+  id="test-button"
+  type="button"
+>
+  <i
+    class="fa-solid fa-floppy-disk icon"
+    data-testid="test-button-icon"
+  />
+  test
+</button>
+`;
+
+exports[`Button secondary button can render secondary button with only icon 1`] = `
+<button
+  class="lib-button secondary"
+  data-testid="test-button"
+  id="test-button"
+  type="button"
+>
+  <i
+    class="fa-solid fa-floppy-disk icon"
+    data-testid="test-button-icon"
+  />
+</button>
+`;
+
+exports[`Button secondary button can render secondary button with only label 1`] = `
+<button
+  class="lib-button secondary"
+  data-testid="test-button"
+  id="test-button"
+  type="button"
+>
+  test
+</button>
+`;
+
+exports[`Button tertiary button can render tertiary button with label and icon 1`] = `
+<button
+  class="lib-button tertiary"
+  data-testid="test-button"
+  id="test-button"
+  type="button"
+>
+  <i
+    class="fa-solid fa-floppy-disk icon"
+    data-testid="test-button-icon"
+  />
+  test
+</button>
+`;
+
+exports[`Button tertiary button can render tertiary button with only icon 1`] = `
+<button
+  class="lib-button tertiary"
+  data-testid="test-button"
+  id="test-button"
+  type="button"
+>
+  <i
+    class="fa-solid fa-floppy-disk icon"
+    data-testid="test-button-icon"
+  />
+</button>
+`;
+
+exports[`Button tertiary button can render tertiary button with only label 1`] = `
+<button
+  class="lib-button tertiary"
+  data-testid="test-button"
+  id="test-button"
+  type="button"
+>
+  test
+</button>
+`;

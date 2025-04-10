@@ -41,11 +41,6 @@ export function getDefaultFieldConfiguration<T>(
       `[getDefaultFieldConfiguration] type is a required field. Making config for ${overrides.inputId}`
     );
   }
-  if (!overrides.controlConfig) {
-    throw new Error(
-      `[getDefaultFieldConfiguration] controlConfig is a required field. Making config for ${overrides.inputId}`
-    );
-  }
 
   return Object.assign(
     {
