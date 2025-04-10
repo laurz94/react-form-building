@@ -1,9 +1,29 @@
+
+import { ReadonlyFieldConfiguration } from '@libs/domain';
 import styles from './readonly-field.module.css';
 
-export function ReadonlyField() {
+export const formatCurrency = (number: number) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(number);
+};
+
+export function ReadonlyField({
+  hideLabel,
+  hint,
+  isCurrency,
+  label,
+  value,
+  valueClassName,
+}: ReadonlyFieldConfiguration) {
   return (
-    <div className={styles['container']}>
-      <h1>Welcome to ReadonlyField!</h1>
+    <div className={styles['readonly-field']} data-testid={`${label}-readonly-field`}>
+      {!hideLabel && (<div className={styles['label']}>{label}</div>)}
+      <div className={`${styles['value']} ${valueClassName ?? ''}`.trim()}>
+        {isCurrency ? formatCurrency(+value) : value}
+      </div>
+      <small className={styles['hint']}>{hint}</small>
     </div>
   );
 }
