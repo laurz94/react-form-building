@@ -1,7 +1,37 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+.readonly-field {
+  .label {
+    color: lightslategrey;
+    font-size: 0.75rem;
+    margin: 0;
+  }
+
+  .hint {
+    color: var(--hint-text-color);
+    font-size: var(--hint-font-size);
+    padding: 0.25rem 0;
+  }
+
+  .value {
+    align-content: center;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    border-radius: 0;
+    min-height: 2.5rem;
+  }
+
+  .placeholder {
+    color: lightslategrey;
+  }
+
+  .readonly-check {
+    color: darkturquoise;
+    margin: 0.25rem;
+    width: 1.25rem;
+  }
+
+  .readonly-checkbox-label {
+    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
+  }
+}
