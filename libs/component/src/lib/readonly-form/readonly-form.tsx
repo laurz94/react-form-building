@@ -1,9 +1,16 @@
-import styles from './readonly-form.module.css';
+import { ReadonlyFieldConfiguration } from '@libs/domain';
+import ReadonlyField from '../readonly-field/readonly-field';
 
-export function ReadonlyForm() {
+export function ReadonlyForm({
+  fields,
+}: {
+  fields: ReadonlyFieldConfiguration[];
+}) {
   return (
-    <div className={styles['container']}>
-      <h1>Welcome to ReadonlyForm!</h1>
+    <div className="form">
+      {fields.map((field, index) => (
+        <ReadonlyField key={index} {...field}></ReadonlyField>
+      ))}
     </div>
   );
 }
