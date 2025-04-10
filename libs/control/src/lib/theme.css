@@ -1,0 +1,89 @@
+:root {
+  --font-size: 1rem;
+  --label-font-size: 1rem;
+  --hint-font-size: 0.85rem;
+  --font-size-medium: 1.25rem;
+  --font-size-large: 1.5rem;
+  --font-size-xlarge: 1.75rem;
+  --font-size-xxlarge: 2rem;
+
+  --text-color: #333;
+  --label-text-color: hsl(240, 1%, 30%);
+  --hint-text-color: #666669;
+
+  --disabled-control-color: #EFEFF6;
+  --disabled-control-text-color: #fff;
+
+  --error-color: #bb0202;
+  --success-color: hsl(120, 100%, 25%);
+
+  --header-color: hsl(220, 13%, 18%);
+
+  --link-color: hsl(193, 95%, 68%);
+
+  --primary-color: #4F517D;
+  --text-on-primary-color: hsl(0, 10%, 100%);
+  --primary-hover-color: hsl(238, 19%, 72%);
+  
+  --secondary-color: #B4D4EE;
+  --text-on-secondary-color: #fff;
+  --secondary-hover-color: #F4D7C5;
+
+  --tertiary-color: #49D49D;
+  --text-on-tertiary-color: #fff;
+  --tertiary-hover-color: #F4D7C5;
+
+  --error-color: #E83151;
+  --success-color: #0EAD69;
+  --warning-color: #FFD23F;
+
+  /* --border-color: #abacbb; */
+  --border-color: hsl(0, 0%, 80%);
+  --border-radius: 6px;
+  --border: 1px solid var(--border-color);
+
+  --focus-ring-color: rgba(13, 110, 253, 0.25);
+  --focus-ring-color-inverted: hsl(192, 26%, 77%);
+  --focus-ring-width: 0.25rem;
+
+
+  --background-color: #e7e7e7;
+  --tool-tip-background-color: hsla(213, 85%, 88%, 0.575);
+
+  --line-height: 1.5;
+}
+
+body{
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+        "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[data-title]:hover:after {
+  opacity: 1;
+  transition: all 0.1s ease 0.5s;
+  visibility: visible;
+}
+[data-title]:after {
+  content: attr(data-title);
+  background-color: var(--tool-tip-background-color);
+  color: var(--text-color);
+  font-size: var(--hint-font-size);
+  position: absolute;
+  padding: 1px 5px 2px 5px;
+  bottom: -1.6em;
+  left: 100%;
+  white-space: nowrap;
+  box-shadow: 1px 1px 3px #949494;
+  opacity: 0;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  font-variant: normal;
+  z-index: 99999;
+  visibility: hidden;
+}
+[data-title] {
+  position: relative;
+}
