@@ -1,0 +1,65 @@
+.lib-button {
+  border: none;
+  border-radius: var(--border-radius);
+  font-variant: small-caps;
+  font-size: 1rem;
+  padding: 0.5rem;
+
+  &[title] {
+    color: fuchsia;
+  }
+
+  &.icon-only {
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+  }
+
+  &.primary {
+    background-color: var(--primary-color);
+    color: var(--text-on-primary-color);
+
+    &:hover {
+      background-color: var(--primary-hover-color);
+    }
+
+    &:disabled {
+      background-color: var(--disabled-control-color);
+      color: var(--disabled-control-text-color);
+    }
+  }
+
+  &.secondary {
+    background-color: transparent;
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+
+    &:hover {
+      background-color: var(--secondary-hover-color);
+    }
+
+    &:disabled {
+      background-color: var(--disabled-control-color);
+      color: var(--disabled-control-text-color);
+      border: none;
+    }
+  }
+
+  &.tertiary {
+    background-color: var(--text-on-tertiary-color);
+    color: var(--tertiary-color);
+
+    &:hover {
+      background-color: var(--tertiary-hover-color);
+    }
+
+    &:disabled {
+      background-color: var(--disabled-control-color);
+      color: var(--disabled-control-text-color);
+    }
+  }
+
+  .icon {
+    margin-right: 0.25rem;
+  }
+}
