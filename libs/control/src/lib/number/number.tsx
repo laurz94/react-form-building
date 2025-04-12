@@ -12,7 +12,7 @@ export function LibNumber({
 }: {
   config: FieldConfiguration<NumberConfiguration>;
   className: string;
-  initialValue: number;
+  initialValue?: number;
   /**
    * Use this event to validate the field
    * @param event The HTML blur event from the DOM

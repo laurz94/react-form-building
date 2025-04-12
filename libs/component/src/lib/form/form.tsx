@@ -2,12 +2,12 @@ import {
   FieldConfiguration,
   FieldRule,
   FieldRuleUpdateEvent,
-  processFieldRules,ReadonlyFieldConfiguration
+  processFieldRules, ReadonlyFieldConfiguration
 } from '@libs/domain';
 import { useState } from 'react';
 import Field from '../field/field';
-import Section, { SectionConfiguration } from '../section/section';
 import ReadonlyField from '../readonly-field/readonly-field';
+import Section, { SectionConfiguration } from '../section/section';
 
 export function LibForm({
   fields,
@@ -31,9 +31,8 @@ export function LibForm({
   const [configs, setConfigs] = useState(fields);
 
   const handleBlur = (value: any, fieldName: string) => {
-    // TODO: If we have cross field validations, it should happen here
-    // validate(value);
-    processRules(value, fieldName, 'onBlur');
+    // Cross field validations
+    processRules(value, fieldName, FieldRuleUpdateEvent.onBlur);
 
     if (onBlurred) {
       onBlurred(value);
@@ -41,7 +40,7 @@ export function LibForm({
   };
 
   const handleChange = (value: any, fieldName: string) => {
-    processRules(value, fieldName, 'onChange');
+    processRules(value, fieldName, FieldRuleUpdateEvent.onChange);
 
     if (onChanged) {
       onChanged(value, fieldName);
@@ -80,6 +79,7 @@ export function LibForm({
       | SectionConfiguration
     )[]
   ) => {
+
     return fieldConfigs.map((field) => {
       return isSection(field) ? (
         <Section
@@ -88,10 +88,10 @@ export function LibForm({
         >
           {renderFields((field as any as SectionConfiguration).fields!)}
         </Section>
-      ) : (field as FieldConfiguration<any>).controlConfig?.inputId ? (
+      ) : (field as FieldConfiguration<any>)?.controlType ? (
         <Field
           key={
-            (field as FieldConfiguration<any>).controlConfig?.inputId ??
+            (field as FieldConfiguration<any>)?.inputId ??
             (field as any as ReadonlyFieldConfiguration).inputId
           }
           config={field as FieldConfiguration<any>}
@@ -100,14 +100,14 @@ export function LibForm({
         ></Field>
       ) : (
         <ReadonlyField
-          {...(field as ReadonlyFieldConfiguration)}
+          {...(field as ReadonlyFieldConfiguration)} key={(field as ReadonlyFieldConfiguration).inputId}
         ></ReadonlyField>
       );
     });
   };
 
   return (
-    <form className="form">
+    <form role="form" className="form">
       {sectionConfig ? (
         <Section {...sectionConfig}>{renderFields(configs)}</Section>
       ) : (

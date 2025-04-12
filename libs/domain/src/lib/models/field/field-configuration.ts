@@ -7,6 +7,7 @@ export interface FieldConfiguration<T> {
   controlType: ControlTypeEnum;
   controlConfig: T;
   name: string;
+  className?: string;
   dataPath?: string[];
   value?: FieldValue;
   label?: string;

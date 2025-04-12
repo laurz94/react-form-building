@@ -1,14 +1,14 @@
+import { LibDatePicker, LibNumber, LibTextbox } from '@libs/control';
 import {
+  ControlTypeEnum,
   customValidator,
   FieldConfiguration,
-  validateField,
-  ControlTypeEnum,
-  DropdownConfiguration,
+  validateField
 } from '@libs/domain';
 import { useState } from 'react';
-import { ReadonlyField } from '../readonly-field';
+
+import ReadonlyField from '../readonly-field/readonly-field';
 import styles from './field.module.css';
-import { LibDatePicker, LibNumber, LibTextbox } from '@libs/control';
 
 export function Field({
   config,
@@ -42,7 +42,7 @@ export function Field({
     validate(value);
 
     if (onBlurred) {
-      onBlurred(value, (config.controlConfig as any).name);
+      onBlurred(value, config.name);
     }
   };
 
@@ -50,7 +50,7 @@ export function Field({
     validate(value);
 
     if (onChanged) {
-      onChanged(value, (config.controlConfig as any).name);
+      onChanged(value, config.name);
     }
   };
 
@@ -64,25 +64,25 @@ export function Field({
     <></>
   ) : config.isReadonly ? (
     <ReadonlyField
-      inputId={config.controlConfig.inputId}
+      inputId={config.inputId}
       label={config.label ?? ''}
       value={config.value}
       hideLabel={config.hideLabel}
       hint={config.hint}
-      key={config.controlConfig.inputId}
+      key={config.inputId}
       isCurrency={config.controlType === ControlTypeEnum.Number}
       valueClassName={config.className}
     ></ReadonlyField>
   ) : (
     <div
-      id={config.controlConfig.inputId + '-field'}
-      data-testid={config.controlConfig.inputId + '-field'}
+      id={config.inputId + '-field'}
+      data-testid={config.inputId + '-field'}
       className={`${styles['field']} ${config.className ?? ''}`}
     >
       {!config.hideLabel && (
         <label
           className={styles['label']}
-          data-testid={config.controlConfig.inputId + '-field-label'}
+          data-testid={config.inputId + '-field-label'}
         >
           {' '}
           {config.label}
@@ -95,9 +95,9 @@ export function Field({
 
       {config.controlType === ControlTypeEnum.DatePicker && (
         <LibDatePicker
-          key={config.controlConfig.inputId}
-          config={config.controlConfig}
-          initialValue={config.value}
+          key={config.inputId}
+          config={config}
+          initialValue={config.value ? config.value.toString() : undefined}
           className={errors.length ? 'invalid' : 'valid'}
           onBlurred={handleBlur}
           onChanged={handleChange}
@@ -119,9 +119,9 @@ export function Field({
  */}
       {config.controlType === ControlTypeEnum.Number && (
         <LibNumber
-          key={config.controlConfig.inputId}
-          config={config.controlConfig}
-          initialValue={config.value}
+          key={config.inputId}
+          config={config}
+          initialValue={config.value ? +config.value : undefined}
           className={errors.length ? 'invalid' : 'valid'}
           onBlurred={handleBlur}
           onChanged={handleChange}
@@ -143,9 +143,9 @@ export function Field({
  */}
       {config.controlType === ControlTypeEnum.Textbox && (
         <LibTextbox
-          key={config.controlConfig.inputId}
-          config={config.controlConfig}
-          initialValue={config.value}
+          key={config.inputId}
+          config={config}
+          initialValue={config.value ? config.value.toString() : undefined}
           className={errors.length ? 'invalid' : 'valid'}
           onBlurred={handleBlur}
           onChanged={handleChange}
@@ -155,7 +155,7 @@ export function Field({
 
       {config.hint && (
         <small
-          data-testid={config.controlConfig.inputId + '-field-hint'}
+          data-testid={config.inputId + '-field-hint'}
           className={styles['hint']}
         >
           {config.hint}
@@ -164,7 +164,7 @@ export function Field({
 
       {errors.map((error, i) => (
         <small
-          data-testid={`${config.controlConfig.inputId}-field-error-${i}`}
+          data-testid={`${config.inputId}-field-error-${i}`}
           key={i}
           className={styles['validation-message']}
         >

@@ -3,8 +3,8 @@
   "compilerOptions": {
     "outDir": "./out-tsc/jest",
     "jsx": "react-jsx",
-    "lib": ["ESNext", "DOM"],
-    "types": ["jest", "node"]
+    "lib": ["ESNext", "DOM",],
+    "types": ["jest", "node", "jest-dom"]
   },
   "include": [
     "jest.config.ts",

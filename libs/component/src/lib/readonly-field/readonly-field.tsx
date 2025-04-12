@@ -12,13 +12,14 @@ export const formatCurrency = (number: number) => {
 export function ReadonlyField({
   hideLabel,
   hint,
+  inputId,
   isCurrency,
   label,
   value,
   valueClassName,
 }: ReadonlyFieldConfiguration) {
   return (
-    <div className={styles['readonly-field']} data-testid={`${label}-readonly-field`}>
+    <div className={styles['readonly-field']} data-testid={`${inputId ?? label}-readonly-field`}>
       {!hideLabel && (<div className={styles['label']}>{label}</div>)}
       <div className={`${styles['value']} ${valueClassName ?? ''}`.trim()}>
         {isCurrency ? formatCurrency(+value) : value}

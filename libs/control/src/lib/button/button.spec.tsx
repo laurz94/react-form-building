@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 
 import { ButtonConfiguration } from '@libs/domain';
 import '@testing-library/jest-dom';

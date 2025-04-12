@@ -7,12 +7,12 @@
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "emitDeclarationOnly": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["node"]
+    "types": ["node", "react", "react-dom"]
   },
   "include": [
     "src/**/*.ts",
   ],
   "references": [],
-  "exclude": ["jest.config.mjs", "src/**/*.spec.ts"]
+  "exclude": ["jest.config.js", "src/**/*.spec.ts"]
 }
 

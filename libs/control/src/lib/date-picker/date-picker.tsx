@@ -11,8 +11,8 @@ export function LibDatePicker({
   onFocused,
 }: {
   config: FieldConfiguration<DatePickerConfiguration>;
-  initialValue: string | number | undefined;
-  className: string;
+  initialValue?: string | number | undefined;
+  className?: string;
   /**
    * Use this event to validate the field
    * @param event The HTML blur event from the DOM

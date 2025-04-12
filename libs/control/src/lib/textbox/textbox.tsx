@@ -5,13 +5,14 @@ import '../global.css';
 export function LibTextbox({
   config,
   initialValue,
-  className,  onBlurred,
+  className,
+  onBlurred,
   onChanged,
   onFocused,
 }: {
   config: FieldConfiguration<TextboxConfiguration>;
-  initialValue: string;
-  className: string
+  initialValue?: string;
+  className: string;
   /**
    * Use this event to validate the field
    * @param event The HTML blur event from the DOM
@@ -45,21 +46,20 @@ export function LibTextbox({
 
   return (
     <input
-      type="text"
+      type='text'
       id={config.inputId + '-textbox'}
       data-testid={config.inputId + '-textbox'}
-      className={"form-control " + (className ?? '')}
+      className={'form-control ' + (className ?? '')}
       disabled={config.isDisabled}
-      minLength={config.controlConfig.minLength}
-      maxLength={config.controlConfig.maxLength}
-      pattern={config.controlConfig.pattern ? config.controlConfig.pattern.toString() : undefined}
-      placeholder={config.controlConfig.placeholder}
+      minLength={config.controlConfig?.minLength}
+      maxLength={config.controlConfig?.maxLength}
+      pattern={config.controlConfig?.pattern ? config.controlConfig.pattern.toString() : undefined}
+      placeholder={config.controlConfig?.placeholder}
       value={value}
       onBlur={handleBlur}
       onChange={handleChange}
       onFocus={handleFocus}
-      onInput={config.controlConfig.onInput}
-    ></input>
+      onInput={config.controlConfig?.onInput}></input>
   );
 }
 

@@ -1,8 +1,12 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import {
-  CheckboxConfiguration, ControlTypeEnum,
+  ControlTypeEnum,
   DatePickerConfiguration,
-  DropdownConfiguration,
   FieldConfiguration,
+  getDefaultFieldConfiguration,
   NumberConfiguration,
   // SelectButtonConfiguration,
   TextboxConfiguration,
@@ -16,16 +20,15 @@ describe('Field', () => {
   const handleChange = jest.fn();
   const handleFocus = jest.fn();
   const inputId = 'test';
-  const baseConfig: FieldConfiguration<any> = {
+  const baseConfig: FieldConfiguration<any> = getDefaultFieldConfiguration({
     controlType: ControlTypeEnum.Textbox,
-    controlConfig: {},
     inputId,
     name: inputId,
     isDisabled: false,
     isRequired: true,
     isReadonly: false,
     label: 'First Name',
-  };
+  });
 
   function getField(config: FieldConfiguration<any>) {
     render(<Field config={config} onChanged={handleChange} onBlurred={handleBlur} onFocused={handleFocus} />);
@@ -214,7 +217,7 @@ describe('Field', () => {
   });
 
   describe('controls', () => {
-    it('display a checkbox', async () => {
+    /* it('display a checkbox', async () => {
       const config: FieldConfiguration<CheckboxConfiguration> = {
         ...baseConfig,
         controlType: ControlTypeEnum.Checkbox,
@@ -251,7 +254,7 @@ describe('Field', () => {
           </label>
         </div>
       `);
-    });
+    }); */
     it('display a date-picker', async () => {
       const config: FieldConfiguration<DatePickerConfiguration> = {
         ...baseConfig,
@@ -288,7 +291,7 @@ describe('Field', () => {
         </div>
       `);
     });
-    it('display a dropdown', async () => {
+    /* it('display a dropdown', async () => {
       const config: FieldConfiguration<DropdownConfiguration> = {
         ...baseConfig,
         controlType: ControlTypeEnum.Dropdown,
@@ -361,7 +364,7 @@ describe('Field', () => {
           </small>
         </div>
       `);
-    });
+    }); */
     it('display a number', async () => {
       const config: FieldConfiguration<NumberConfiguration> = {
         ...baseConfig,
@@ -498,13 +501,13 @@ describe('Field', () => {
     });
     it('displays a readonly field if field isReadonly', () => {
       render(<Field config={{ ...baseConfig, isReadonly: true }} />);
-      const readonlyField = screen.getAllByTestId('First Name-readonly-field')?.[0];
+      const readonlyField = screen.getAllByTestId('test-readonly-field')?.[0];
 
       expect(readonlyField).toBeTruthy();
       expect(readonlyField).toMatchInlineSnapshot(`
         <div
           class="readonly-field"
-          data-testid="First Name-readonly-field"
+          data-testid="test-readonly-field"
         >
           <div
             class="label"

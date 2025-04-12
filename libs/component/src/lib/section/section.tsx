@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { FieldConfiguration, FieldRule, ReadonlyFieldConfiguration } from '@libs/domain';
+import { ReactNode, useState } from 'react';
 import styles from './section.module.css';
 
 export interface SectionConfiguration {
