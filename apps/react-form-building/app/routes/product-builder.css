@@ -1,0 +1,11 @@
+.page {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 1rem;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;;
+    }
+}

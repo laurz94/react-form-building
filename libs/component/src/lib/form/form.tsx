@@ -1,33 +1,24 @@
 import {
   FieldConfiguration,
-  FieldRule,
   FieldRuleUpdateEvent,
-  processFieldRules, ReadonlyFieldConfiguration
+  FormConfiguration,
+  FormFieldType,
+  FormLevel,
+  processFieldRules,
+  ReadonlyFieldConfiguration,
+  SectionConfiguration,
 } from '@libs/domain';
 import { useState } from 'react';
 import Field from '../field/field';
 import ReadonlyField from '../readonly-field/readonly-field';
-import Section, { SectionConfiguration } from '../section/section';
+import Section from '../section/section';
 
-export function LibForm({
-  fields,
-  fieldRules,
-  sectionConfig,
-  onBlurred,
-  onChanged,
-  onFocused,
-}: {
-  fields: (
-    | FieldConfiguration<any>
-    | SectionConfiguration
-    | ReadonlyFieldConfiguration
-  )[];
-  fieldRules?: FieldRule[];
-  sectionConfig?: SectionConfiguration;
-  onBlurred?: (value: string | number) => void;
-  onChanged?: (value: string | number, fieldName: string) => void;
-  onFocused?: (value: string | number) => void;
-}) {
+export function LibForm(
+  { name, title, level, fields, fieldRules }: FormConfiguration,
+  onBlurred?: (value: string | number) => void,
+  onChanged?: (value: string | number, fieldName: string) => void,
+  onFocused?: (value: string | number) => void,
+) {
   const [configs, setConfigs] = useState(fields);
 
   const handleBlur = (value: any, fieldName: string) => {
@@ -47,72 +38,48 @@ export function LibForm({
     }
   };
 
-  function processRules(
-    value: any,
-    fieldName: string,
-    action: FieldRuleUpdateEvent
-  ) {
+  function processRules(value: any, fieldName: string, action: FieldRuleUpdateEvent) {
     if (fieldRules?.length) {
       const newConfigs = processFieldRules(
         { fieldName, value, action: action },
         configs as FieldConfiguration<any>[],
-        fieldRules
+        fieldRules,
       );
 
       setConfigs(newConfigs);
     }
   }
 
-  const isSection = (
-    field:
-      | FieldConfiguration<any>
-      | ReadonlyFieldConfiguration
-      | SectionConfiguration
-  ): boolean => {
-    return !!(field as any).fields?.length;
+  const isSection = (field: FormFieldType): boolean => {
+    return typeof level === typeof FormLevel.section || typeof level === typeof FormLevel.subSection;
   };
 
-  const renderFields = (
-    fieldConfigs: (
-      | FieldConfiguration<any>
-      | ReadonlyFieldConfiguration
-      | SectionConfiguration
-    )[]
-  ) => {
-
+  const renderFields = (fieldConfigs: FormFieldType[]) => {
     return fieldConfigs.map((field) => {
       return isSection(field) ? (
-        <Section
-          key={(field as SectionConfiguration).inputId}
-          {...(field as SectionConfiguration)}
-        >
+        <Section key={(field as SectionConfiguration).inputId} {...(field as SectionConfiguration)}>
           {renderFields((field as any as SectionConfiguration).fields!)}
         </Section>
       ) : (field as FieldConfiguration<any>)?.controlType ? (
         <Field
-          key={
-            (field as FieldConfiguration<any>)?.inputId ??
-            (field as any as ReadonlyFieldConfiguration).inputId
-          }
+          key={(field as FieldConfiguration<any>)?.inputId ?? (field as any as ReadonlyFieldConfiguration).inputId}
           config={field as FieldConfiguration<any>}
           onBlurred={handleBlur}
-          onChanged={handleChange}
-        ></Field>
+          onChanged={handleChange}></Field>
       ) : (
         <ReadonlyField
-          {...(field as ReadonlyFieldConfiguration)} key={(field as ReadonlyFieldConfiguration).inputId}
-        ></ReadonlyField>
+          {...(field as ReadonlyFieldConfiguration)}
+          key={(field as ReadonlyFieldConfiguration).inputId}></ReadonlyField>
       );
     });
   };
 
   return (
-    <form role="form" className="form">
-      {sectionConfig ? (
-        <Section {...sectionConfig}>{renderFields(configs)}</Section>
-      ) : (
-        renderFields(configs)
-      )}
+    <form role='form' className='form' id={name + '-form'} name={name} data-testid={name + '-form'}>
+      {typeof level === typeof FormLevel.page && <h1 className='form-title'>{title ?? 'PAGE TITLE'}</h1>}
+      <main className='form-body'>{renderFields(configs as FormFieldType[])}</main>
+      {/* {typeof level === typeof FormLevel.section && <Section {...sectionConfig}>{renderFields(configs)}</Section>} */}
+      {/* {sectionConfig ? <Section {...sectionConfig}>{renderFields(configs)}</Section> : renderFields(configs)} */}
     </form>
   );
 }

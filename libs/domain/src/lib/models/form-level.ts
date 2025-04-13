@@ -1,5 +1,5 @@
-export const FormLevel = {
-  page: 'page',
-  section: 'section',
-  subSection: 'subSection',
-} as const;
+export enum FormLevel {
+  page = 'page',
+  section = 'section',
+  subSection = 'subSection',
+}

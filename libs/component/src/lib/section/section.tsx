@@ -1,32 +1,15 @@
-import { FieldConfiguration, FieldRule, ReadonlyFieldConfiguration } from '@libs/domain';
-import { ReactNode, useState } from 'react';
+import { SectionConfiguration } from '@libs/domain';
+import { useState } from 'react';
 import styles from './section.module.css';
-
-export interface SectionConfiguration {
-  inputId: string;
-  title: string;
-  fields?: (FieldConfiguration<any> | SectionConfiguration | ReadonlyFieldConfiguration)[];
-  fieldRules?: FieldRule[];
-  children?: ReactNode;
-  icon?: string;
-  collapsable?: boolean;
-  isCollapsed?: boolean;
-  isSubSection?: boolean;
-
-  onChanged?: (value: string | number, fieldName: string) => void;
-}
 
 export function Section({
   inputId,
   title,
-  fields,
-  fieldRules,
   children,
   icon,
   collapsable,
   isCollapsed,
   isSubSection,
-  onChanged,
 }: SectionConfiguration) {
   const [collapsed, setCollapsed] = useState(isCollapsed);
   const [toggleIcon, setToggleIcon] = useState(
