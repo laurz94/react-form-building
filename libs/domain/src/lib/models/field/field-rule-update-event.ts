@@ -1,4 +1,5 @@
 export enum FieldRuleUpdateEvent  {
     onBlur = 'onBlur',
-    onChange= 'onChange'
+    onChange= 'onChange',
+    onLoad = 'onLoad',
 };

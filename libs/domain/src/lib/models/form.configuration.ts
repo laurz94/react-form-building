@@ -5,6 +5,7 @@ import { FieldRule } from './field/field-rule';
 import { FormLevel } from './form-level'; // Ensure FormLevel is correctly imported and typed
 import { SectionConfiguration } from './section.configuration';
 
+export interface FormField {type: FormFieldType, level: FormLevel}
 export type FormFieldType = FieldConfiguration<any> | SectionConfiguration | ReadonlyFieldConfiguration;
 export interface FormConfiguration {
   /**
@@ -27,13 +28,14 @@ export interface FormConfiguration {
    * * The sections, subsections, and fields of the form.
    *   This is an array of SectionConfiguration | FieldConfiguration | ReadonlyFieldConfiguration objects.
    */
-  fields?: FormFieldType[];
+  fields: FormFieldType[];
   /**
    * * The field rules of the form. Goes Cross-Section.
    * * This is an array of FieldRule objects.
    * * These rules are used to cross-validate the fields in the form.
    */
   fieldRules?: FieldRule[];
+  footerChildren?: any; // ReactNode;
   
   onBlurred?: (value: FieldValue) => void,
   onChanged?: (value: FieldValue, fieldName: string) => void,

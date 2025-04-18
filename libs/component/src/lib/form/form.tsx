@@ -39,7 +39,7 @@ export function LibForm(
     if (fieldRules?.length) {
       const newConfigs = processFieldRules(
         { fieldName, value, action: action },
-        configs,
+        configs as FieldConfiguration<any>[],
         fieldRules,
       );
 
@@ -48,7 +48,8 @@ export function LibForm(
   }
 
   const isSection = (field: FormFieldType): boolean => {
-    return typeof level === typeof FormLevel.section || typeof level === typeof FormLevel.subSection;
+    return !!(field as any).fields?.length;
+    // return typeof level === typeof FormLevel.section || typeof level === typeof FormLevel.subSection;
   };
 
   const renderFields = (fieldConfigs: FormFieldType[]) => {
@@ -59,7 +60,7 @@ export function LibForm(
         </Section>
       ) : (field as FieldConfiguration<any>)?.controlType ? (
         <Field
-          key={(field as FieldConfiguration<any>)?.inputId ?? (field as any as ReadonlyFieldConfiguration).inputId}
+          key={(field as FieldConfiguration<any>)?.inputId}
           config={field as FieldConfiguration<any>}
           onBlurred={handleBlur}
           onChanged={handleChange}></Field>
@@ -74,9 +75,7 @@ export function LibForm(
   return (
     <form role='form' className='form' id={name + '-form'} name={name} data-testid={name + '-form'}>
       {typeof level === typeof FormLevel.page && <h1 className='form-title'>{title ?? 'PAGE TITLE'}</h1>}
-      <main className='form-body'>{renderFields(configs as FormFieldType[])}</main>
-      {/* {typeof level === typeof FormLevel.section && <Section {...sectionConfig}>{renderFields(configs)}</Section>} */}
-      {/* {sectionConfig ? <Section {...sectionConfig}>{renderFields(configs)}</Section> : renderFields(configs)} */}
+      <main className='form-body'>{renderFields(configs)}</main>
     </form>
   );
 }

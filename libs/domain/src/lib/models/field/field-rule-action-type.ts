@@ -7,6 +7,7 @@ export type FieldRuleActionType =
   | 'enable'
   | 'readonly'
   | 'editable'
+  | 'setLabel'
   | 'setMin'
   | 'setMax'
   | 'setMinDate'

@@ -40,7 +40,79 @@ describe('Form', () => {
   it('should render successfully', () => {
     const { baseElement } = render(<Form name='Test-Form' title='Test Form' level={FormLevel.page} fields={fields} />);
     expect(baseElement).toBeTruthy();
-    expect(baseElement).toMatchInlineSnapshot();
+    expect(baseElement).toMatchInlineSnapshot(`
+      <body>
+        <div>
+          <form
+            class="form"
+            data-testid="Test-Form-form"
+            id="Test-Form-form"
+            name="Test-Form"
+            role="form"
+          >
+            <h1
+              class="form-title"
+            >
+              Test Form
+            </h1>
+            <main
+              class="form-body"
+            >
+              <div
+                class="field "
+                data-testid="test-field"
+                id="test-field"
+              >
+                <label
+                  class="label"
+                  data-testid="test-field-label"
+                >
+                   
+                  First Name
+                  <span
+                    class="required"
+                  >
+                     *
+                  </span>
+                </label>
+                <input
+                  class="form-control valid"
+                  data-testid="test-textbox"
+                  id="test-textbox"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                class="field "
+                data-testid="test2-field"
+                id="test2-field"
+              >
+                <label
+                  class="label"
+                  data-testid="test2-field-label"
+                >
+                   
+                  Last Name
+                  <span
+                    class="required"
+                  >
+                     *
+                  </span>
+                </label>
+                <input
+                  class="form-control valid"
+                  data-testid="test2-textbox"
+                  id="test2-textbox"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </main>
+          </form>
+        </div>
+      </body>
+    `);
   });
 
   describe('FieldRules', () => {
@@ -79,7 +151,52 @@ describe('Form', () => {
       fireEvent.blur(inputElement);
       const elementsOnForm = screen.getAllByRole('form');
 
-      expect(elementsOnForm).toMatchInlineSnapshot();
+      expect(elementsOnForm).toMatchInlineSnapshot(`
+        [
+          <form
+            class="form"
+            data-testid="Test-Form-form"
+            id="Test-Form-form"
+            name="Test-Form"
+            role="form"
+          >
+            <h1
+              class="form-title"
+            >
+              Test Form
+            </h1>
+            <main
+              class="form-body"
+            >
+              <div
+                class="field "
+                data-testid="test-field"
+                id="test-field"
+              >
+                <label
+                  class="label"
+                  data-testid="test-field-label"
+                >
+                   
+                  First Name
+                  <span
+                    class="required"
+                  >
+                     *
+                  </span>
+                </label>
+                <input
+                  class="form-control valid"
+                  data-testid="test-textbox"
+                  id="test-textbox"
+                  type="text"
+                  value="George Brett"
+                />
+              </div>
+            </main>
+          </form>,
+        ]
+      `);
     });
   });
 });
