@@ -4,7 +4,7 @@
     "outDir": "./out-tsc/jest",
     "jsx": "react-jsx",
     "lib": ["ESNext", "DOM",],
-    "types": ["jest", "node", "jest-dom"]
+    "types": ["jest", "node", "@testing-library/jest-dom"]
   },
   "include": [
     "jest.config.ts",

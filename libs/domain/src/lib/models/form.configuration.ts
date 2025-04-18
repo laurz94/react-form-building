@@ -1,4 +1,5 @@
 import { ReadonlyFieldConfiguration } from './control-configurations';
+import { FieldValue } from './field';
 import { FieldConfiguration } from './field/field-configuration';
 import { FieldRule } from './field/field-rule';
 import { FormLevel } from './form-level'; // Ensure FormLevel is correctly imported and typed
@@ -33,6 +34,9 @@ export interface FormConfiguration {
    * * These rules are used to cross-validate the fields in the form.
    */
   fieldRules?: FieldRule[];
+  
+  onBlurred?: (value: FieldValue) => void,
+  onChanged?: (value: FieldValue, fieldName: string) => void,
 }
 
 export const getDefaultFormConfiguration = (overrides?: Partial<FormConfiguration>): FormConfiguration => {

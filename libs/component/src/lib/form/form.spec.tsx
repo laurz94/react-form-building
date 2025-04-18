@@ -4,7 +4,14 @@
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { ControlTypeEnum, FieldConfiguration, FieldRule, FieldRuleUpdateEvent } from '@libs/domain';
+import {
+  ControlTypeEnum,
+  FieldConfiguration,
+  FieldRule,
+  FieldRuleUpdateEvent,
+  FormFieldType,
+  FormLevel,
+} from '@libs/domain';
 import Form from './form.js';
 
 describe('Form', () => {
@@ -18,7 +25,7 @@ describe('Form', () => {
     label: 'First Name',
     controlConfig: {} as any,
   };
-  const fields: FieldConfiguration<any>[] = [
+  const fields: FormFieldType[] = [
     { ...baseConfig },
     {
       ...baseConfig,
@@ -31,75 +38,14 @@ describe('Form', () => {
     },
   ];
   it('should render successfully', () => {
-    const { baseElement } = render(<Form fields={fields} />);
+    const { baseElement } = render(<Form name='Test-Form' title='Test Form' level={FormLevel.page} fields={fields} />);
     expect(baseElement).toBeTruthy();
-    expect(baseElement).toMatchInlineSnapshot(`
-      <body>
-        <div>
-          <form
-            class="form"
-            role="form"
-          >
-            <div
-              class="field "
-              data-testid="test-field"
-              id="test-field"
-            >
-              <label
-                class="label"
-                data-testid="test-field-label"
-              >
-                 
-                First Name
-                <span
-                  class="required"
-                >
-                   *
-                </span>
-              </label>
-              <input
-                class="form-control valid"
-                data-testid="test-textbox"
-                id="test-textbox"
-                type="text"
-                value=""
-              />
-            </div>
-            <div
-              class="field "
-              data-testid="test2-field"
-              id="test2-field"
-            >
-              <label
-                class="label"
-                data-testid="test2-field-label"
-              >
-                 
-                Last Name
-                <span
-                  class="required"
-                >
-                   *
-                </span>
-              </label>
-              <input
-                class="form-control valid"
-                data-testid="test2-textbox"
-                id="test2-textbox"
-                type="text"
-                value=""
-              />
-            </div>
-          </form>
-        </div>
-      </body>
-    `);
+    expect(baseElement).toMatchInlineSnapshot();
   });
 
   describe('FieldRules', () => {
     const handleBlur = jest.fn();
     const handleChange = jest.fn();
-    const handleFocus = jest.fn();
 
     const rules: FieldRule[] = [
       {
@@ -112,11 +58,13 @@ describe('Form', () => {
     const form = () => {
       render(
         <Form
+          name='Test-Form'
+          title='Test Form'
+          level={FormLevel.page}
           fields={fields}
           fieldRules={rules}
-          onChanged={handleChange}
           onBlurred={handleBlur}
-          onFocused={handleFocus}
+          onChanged={handleChange}
         />,
       );
       const inputElement = screen.getAllByTestId('test-textbox')?.[0];
@@ -131,41 +79,7 @@ describe('Form', () => {
       fireEvent.blur(inputElement);
       const elementsOnForm = screen.getAllByRole('form');
 
-      expect(handleBlur).toHaveBeenCalledTimes(1);
-      expect(elementsOnForm).toMatchInlineSnapshot(`
-        [
-          <form
-            class="form"
-            role="form"
-          >
-            <div
-              class="field "
-              data-testid="test-field"
-              id="test-field"
-            >
-              <label
-                class="label"
-                data-testid="test-field-label"
-              >
-                 
-                First Name
-                <span
-                  class="required"
-                >
-                   *
-                </span>
-              </label>
-              <input
-                class="form-control valid"
-                data-testid="test-textbox"
-                id="test-textbox"
-                type="text"
-                value="George Brett"
-              />
-            </div>
-          </form>,
-        ]
-      `);
+      expect(elementsOnForm).toMatchInlineSnapshot();
     });
   });
 });

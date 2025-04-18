@@ -14,10 +14,7 @@ import ReadonlyField from '../readonly-field/readonly-field';
 import Section from '../section/section';
 
 export function LibForm(
-  { name, title, level, fields, fieldRules }: FormConfiguration,
-  onBlurred?: (value: string | number) => void,
-  onChanged?: (value: string | number, fieldName: string) => void,
-  onFocused?: (value: string | number) => void,
+  { name, title, level, fields, fieldRules, onBlurred, onChanged }: FormConfiguration,
 ) {
   const [configs, setConfigs] = useState(fields);
 
@@ -42,7 +39,7 @@ export function LibForm(
     if (fieldRules?.length) {
       const newConfigs = processFieldRules(
         { fieldName, value, action: action },
-        configs as FieldConfiguration<any>[],
+        configs,
         fieldRules,
       );
 

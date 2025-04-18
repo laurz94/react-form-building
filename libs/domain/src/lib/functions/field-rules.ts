@@ -6,6 +6,7 @@ import {
   FieldRule,
   FieldRuleAction,
   FieldRuleProcessEvent,
+  FormFieldType,
   NumberConfiguration,
   TextboxConfiguration,
 } from '../models';
@@ -13,11 +14,11 @@ import { isFunction } from './object-manipulation';
 
 export function processFieldRules(
   event: FieldRuleProcessEvent,
-  fieldConfigs: FieldConfiguration<any>[],
+  configs: FormFieldType[],
   fieldRules: FieldRule[],
   data?: any
-): FieldConfiguration<any>[] {
-  let newFieldConfigs = [...fieldConfigs];
+): FormFieldType[] {
+  let newConfigs = [...configs];
 
   fieldRules
     .filter((r) => r.fieldName === event.fieldName)
@@ -26,7 +27,7 @@ export function processFieldRules(
         event.value === fieldRule.valueToMatch &&
         fieldRule.updateOn === event.action
       ) {
-        newFieldConfigs = fieldConfigs.map(
+        newConfigs = configs.map(
           (config): FieldConfiguration<any> => {
             const effectedField = fieldRule.effectedFields.find(
               (field) => field.name === config.name
@@ -40,7 +41,7 @@ export function processFieldRules(
       }
     });
 
-  return newFieldConfigs;
+  return newConfigs;
 }
 
 function applyFieldRule(

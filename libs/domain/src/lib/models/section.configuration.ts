@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { FieldRule } from "./field";
 import { FormFieldType } from "./form.configuration";
 
@@ -30,7 +29,7 @@ export interface SectionConfiguration {
      * * Optional child elements or components to be rendered within the section.
      * * This allows for more complex layouts or additional content within the section.
      */
-    children?: ReactNode;
+    children?: any // ReactNode;
     /**
      * * An optional icon associated with the section.
      * * This can be used to visually represent the section's purpose or category.
